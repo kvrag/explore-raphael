@@ -1,4 +1,4 @@
-$(function() {
+$(document).ready(function() {
 
   var paper = Raphael("container");
 
@@ -43,23 +43,40 @@ $(function() {
           color: "white"
         });
 
-    var dayText = paper.text(200, 350, "It is day.").attr({
-      "font-family": "Georgia",
-      "font-size": 20
-    });
 
-  var sunShine = paper.set(sun, rays);
-
-  var dayScene = paper.set(sunShine, sky, grass, barn, barnBoards, barnRoof, dayText);
+  var dayScene = paper.set(sun, rays, sky, grass, barn, barnBoards, barnRoof);
       dayScene.attr({
         cursor: "pointer"
       });
 
+    var moon = paper.circle(100, 700, 50).attr({
+      stroke: "none",
+      fill: "45-#CACACC-#FDFCFF"
+    })
+    
+
+    var nightSky = paper.rect(1, 601, 600, 600).attr({
+      stroke: "none",
+      fill: "90-#2A1B70-#0B071F"
+      });
 
 
-  dayScene.click(function() {
-    sunShine.animate({
+  dayScene.click(function () {
+    sun.animate({
       cy: 700
-    }, 2000)
+    }, 2000, "ease-in");
+    rays.hide(2000);
+
+    moon.animate({
+      cy: 100
+    }, 2000, "ease-out");
+
+    sky.animate({
+      fill: "90-#2A1B70-#0B071F"
+    }, 1000);
+
+    
   });
+
+
 });
